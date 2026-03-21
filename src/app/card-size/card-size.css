@@ -1,0 +1,13 @@
+.btn_size {
+    border-radius: 20px;
+    border: none;
+    color: black;
+    font-size: 10px;
+    padding: 8px 22px;
+    background-color: #D9D9D9;
+}
+
+.active {
+    background-color: black;
+    color: white;
+}
