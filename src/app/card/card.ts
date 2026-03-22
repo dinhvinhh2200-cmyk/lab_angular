@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -52,15 +52,21 @@ export class Card {
 
   // xử lý nút yêu thích
   isFavorite = signal(false);
+  onFavoriteChange = output<{title: string, isAdd: boolean}>()
   toggleFavorite() {
     this.isFavorite.update((initValue) => !initValue);
-    this.isFavorite()
-      ? alert(`Bạn đã thêm sản phẩm ${this.card_title()} vào mục yêu thích thành công!`)
-      : alert(`Bạn đã bỏ yêu thích sản phẩm ${this.card_title()}`);
+    // this.isFavorite()
+    //   ? alert(`Bạn đã thêm sản phẩm ${this.card_title()} vào mục yêu thích thành công!`)
+    //   : alert(`Bạn đã bỏ yêu thích sản phẩm ${this.card_title()}`);
+    this.onFavoriteChange.emit({
+      title: this.card_title(),
+      isAdd: this.isFavorite()
+    })
   }
 
   // xử lý nút buy now
+  onBuy = output<string>()
   handleBuyNow () {
-    alert(`Đã thêm sản phẩm ${this.card_title()} vào giỏ hàng thành công!`)
+    this.onBuy.emit(this.card_title())
   }
 }
