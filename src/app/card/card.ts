@@ -7,11 +7,8 @@ import { Component, input } from '@angular/core';
   styleUrl: './card.css',
 })
 export class Card {
-  listImg: any[] = [
-    'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lx1lxv4u66xe22',
-    'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lx1lxv4u4scyff',
-    'https://serenaestantes.com.br/wp-content/uploads/Rack-Para-Discos-De-Vinil-EV-397-1.webp',
-  ];
+  
+  listImg = input<string[]>()
 
   card_price = input.required<number>()
   card_title = input.required<string>()
