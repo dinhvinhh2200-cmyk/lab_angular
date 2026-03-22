@@ -34,7 +34,7 @@
       <div class="card_phara">
         <div class="card_price">
           <p>&#8369;{{ card_price() }}</p>
-          <p>P25,000</p>
+          <p>P{{discount()}}</p>
           <p>Best Seller</p>
         </div>
         <div class="card_name_card_rate">
@@ -55,7 +55,7 @@
             @for (item of colorList; track item.id) {
               <app-color-dot
                 [color]="item.color"
-                [isActive]="selectColorId === item.id"
+                [isActive]="selectColorId() === item.id" (click)="chooseColor(item.id)"
               ></app-color-dot>
             }
           </div>
@@ -64,7 +64,7 @@
           <p class="titleSize">Size (cm)</p>
           <div class="sizeNumber">
             @for (item of sizeList; track item.id) {
-              <app-card-size [isActive]="selectSizeId === item.id">{{ item.size }}</app-card-size>
+              <app-card-size [isActive]="selectSizeId() === item.id" (click)="chooseSize(item.id)">{{ item.size }}</app-card-size>
             }
           </div>
         </div>
@@ -74,7 +74,7 @@
             <p>In Stock</p>
           </div>
           <div class="card_quantity_title">
-            <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+            <button (click)="decrease()" class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
             <input
               type="number"
               class="form-control text-center"
@@ -82,7 +82,7 @@
               id="input-quantity"
               readonly
             />
-            <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+            <button (click)="increase()" class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
           </div>
         </div>
         <div class="card_buy">
