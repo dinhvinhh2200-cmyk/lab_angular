@@ -34,7 +34,7 @@
       <div class="card_phara">
         <div class="card_price">
           <p>&#8369;{{ card_price() }}</p>
-          <p>P{{discount()}}</p>
+          <p>P{{ discount() }}</p>
           <p>Best Seller</p>
         </div>
         <div class="card_name_card_rate">
@@ -55,7 +55,8 @@
             @for (item of colorList; track item.id) {
               <app-color-dot
                 [color]="item.color"
-                [isActive]="selectColorId() === item.id" (click)="chooseColor(item.id)"
+                [isActive]="selectColorId() === item.id"
+                (click)="chooseColor(item.id)"
               ></app-color-dot>
             }
           </div>
@@ -64,7 +65,11 @@
           <p class="titleSize">Size (cm)</p>
           <div class="sizeNumber">
             @for (item of sizeList; track item.id) {
-              <app-card-size [isActive]="selectSizeId() === item.id" (click)="chooseSize(item.id)">{{ item.size }}</app-card-size>
+              <app-card-size
+                [isActive]="selectSizeId() === item.id"
+                (click)="chooseSize(item.id)"
+                >{{ item.size }}</app-card-size
+              >
             }
           </div>
         </div>
@@ -74,25 +79,53 @@
             <p>In Stock</p>
           </div>
           <div class="card_quantity_title">
-            <button (click)="decrease()" class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
+            <button
+              (click)="decrease()"
+              class="btn btn-outline-secondary"
+              type="button"
+              id="btn-minus"
+            >
+              −
+            </button>
             <input
               type="number"
               class="form-control text-center"
-              value="{{quantily()}}"
+              value="{{ quantily() }}"
               id="input-quantity"
               readonly
             />
-            <button (click)="increase()" class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
+            <button
+              (click)="increase()"
+              class="btn btn-outline-secondary"
+              type="button"
+              id="btn-plus"
+            >
+              +
+            </button>
           </div>
         </div>
         <div class="card_buy">
-          <button type="button" class="btn position-relative p-0 border-0">
-            <i class="bi bi-heart" style="font-size: 1.5rem"></i>
+          <button
+            (click)="toggleFavorite()"
+            type="button"
+            class="btn position-relative p-0 border-0"
+          >
+            <i
+              class="bi"
+              [class.bi-heart]="!isFavorite()"
+              [class.bi-heart-fill]="isFavorite()"
+              [style.color]="isFavorite() ? 'red' : 'inherit'"
+              style="font-size: 1.5rem"
+            ></i>
 
-            <span
+            @if (isFavorite()) {
+              <span
               class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
             >
             </span>
+            }
+
+            
           </button>
           <button type="button" class="btn position-relative">
             <i class="bi bi-bag" style="font-size: 1.5rem"></i>
@@ -101,7 +134,7 @@
             >
             </span>
           </button>
-          <button class="btn btn-custom-buy">Buy Now</button>
+          <button class="btn btn-custom-buy" (click)="handleBuyNow()">Buy Now</button>
         </div>
       </div>
     </div>
