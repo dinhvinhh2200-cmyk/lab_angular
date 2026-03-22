@@ -1,4 +1,4 @@
-import { Component , Input } from '@angular/core';
+import { Component , input } from '@angular/core';
 
 @Component({
   selector: 'app-color-dot',
@@ -7,6 +7,6 @@ import { Component , Input } from '@angular/core';
   styleUrl: './color-dot.css',
 })
 export class ColorDot {
-  @Input() color:string = '#000'
-  @Input() isActive: boolean = false
+  color = input.required<string>()
+  isActive = input(false)
 }

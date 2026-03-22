@@ -33,13 +33,13 @@
 
       <div class="card_phara">
         <div class="card_price">
-          <p>&#8369;{{ card_price }}</p>
+          <p>&#8369;{{ card_price() }}</p>
           <p>P25,000</p>
           <p>Best Seller</p>
         </div>
         <div class="card_name_card_rate">
           <p class="cardName">
-            {{ card_title }}
+            {{ card_title() }}
           </p>
           <div class="cardRate">
             <span style="color: gold; font-size: xx-large">&#9733;</span>
@@ -47,7 +47,7 @@
           </div>
         </div>
         <p class="mota">
-          {{ card_mota }}
+          {{ card_mota() }}
         </p>
         <div class="card_dotColor">
           <p class="colorTitle">Color</p>
@@ -78,7 +78,7 @@
             <input
               type="number"
               class="form-control text-center"
-              value="5"
+              value="{{quantily()}}"
               id="input-quantity"
               readonly
             />

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -12,9 +12,11 @@ export class Card {
     'https://down-br.img.susercontent.com/file/br-11134207-7r98o-lx1lxv4u4scyff',
     'https://serenaestantes.com.br/wp-content/uploads/Rack-Para-Discos-De-Vinil-EV-397-1.webp',
   ];
-  card_price: string = '15,000';
-  card_title: string = 'Bed Side Table';
-  card_mota: string =  'A beautiful side table that will perfectly fit your lovely bed room.With space for your books, lamps and electronic devices.';
+
+  card_price = input.required<number>()
+  card_title = input.required<string>()
+  card_mota = input.required<string>() 
+  quantily = input<number>(5)
     
   colorList = [
     { id: 1, color: '#0D1D3E' },

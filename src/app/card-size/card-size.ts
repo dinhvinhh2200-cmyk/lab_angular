@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-card-size',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card-size.css',
 })
 export class CardSize {
-  @Input() isActive: boolean = false
+  isActive = input(false)
 }
