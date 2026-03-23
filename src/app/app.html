@@ -1,24 +1,54 @@
 <style></style>
 
 <main class="main">
-  <app-card
+  <div class="product-grid">
+    <app-card
+      [listImg]="['https://image.hm.com/assets/hm/44/42/4442fbac4e3080ec20b2f14e353fea267249b0dd.jpg?imwidth=1536',
+                  'https://image.hm.com/assets/hm/bd/e4/bde4ef42f917ccb678c4ff1d218520ce2f10ff6d.jpg?imwidth=564',
+                  'https://image.hm.com/assets/hm/ea/97/ea9798f944176af96af5568e0e4e53c96fdf79be.jpg?imwidth=564',]"
+      [card_price]="15000"
+      card_title="Bed Side Table"
+      [discount]="25000"
+      card_mota="A beautiful side table that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
+      (onBuy)="handleCardBuy($event)"
+      (onFavoriteChange)="handleCardFav($event)"
+    ></app-card>
 
-    [listImg]="['https://image.hm.com/assets/hm/44/42/4442fbac4e3080ec20b2f14e353fea267249b0dd.jpg?imwidth=1536',
-                'https://image.hm.com/assets/hm/bd/e4/bde4ef42f917ccb678c4ff1d218520ce2f10ff6d.jpg?imwidth=564',
-                'https://image.hm.com/assets/hm/ea/97/ea9798f944176af96af5568e0e4e53c96fdf79be.jpg?imwidth=564',]"
+    <app-card
+      [listImg]="['https://image.hm.com/assets/hm/44/42/4442fbac4e3080ec20b2f14e353fea267249b0dd.jpg?imwidth=1536',
+                  'https://image.hm.com/assets/hm/bd/e4/bde4ef42f917ccb678c4ff1d218520ce2f10ff6d.jpg?imwidth=564',
+                  'https://image.hm.com/assets/hm/ea/97/ea9798f944176af96af5568e0e4e53c96fdf79be.jpg?imwidth=564',]"
+      [card_price]="15000"
+      card_title="Bed Side Table"
+      [discount]="25000"
+      card_mota="A beautiful side table that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
+      (onBuy)="handleCardBuy($event)"
+      (onFavoriteChange)="handleCardFav($event)"
+    ></app-card>
 
-    [card_price]="15000"
+    <app-card
+      [listImg]="['https://image.hm.com/assets/hm/44/42/4442fbac4e3080ec20b2f14e353fea267249b0dd.jpg?imwidth=1536',
+                  'https://image.hm.com/assets/hm/bd/e4/bde4ef42f917ccb678c4ff1d218520ce2f10ff6d.jpg?imwidth=564',
+                  'https://image.hm.com/assets/hm/ea/97/ea9798f944176af96af5568e0e4e53c96fdf79be.jpg?imwidth=564',]"
+      [card_price]="15000"
+      card_title="Bed Side Table"
+      [discount]="25000"
+      card_mota="A beautiful side table that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
+      (onBuy)="handleCardBuy($event)"
+      (onFavoriteChange)="handleCardFav($event)"
+    ></app-card>
 
-    card_title="Bed Side Table"
-
-    [discount]="25000"
-
-    card_mota="A beautiful side table that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
-
-    (onBuy)="handleCardBuy($event)"
-
-    (onFavoriteChange)="handleCardFav($event)"
-
-  ></app-card>
+    <app-card
+      [listImg]="['https://image.hm.com/assets/hm/44/42/4442fbac4e3080ec20b2f14e353fea267249b0dd.jpg?imwidth=1536',
+                  'https://image.hm.com/assets/hm/bd/e4/bde4ef42f917ccb678c4ff1d218520ce2f10ff6d.jpg?imwidth=564',
+                  'https://image.hm.com/assets/hm/ea/97/ea9798f944176af96af5568e0e4e53c96fdf79be.jpg?imwidth=564',]"
+      [card_price]="15000"
+      card_title="Bed Side Table"
+      [discount]="25000"
+      card_mota="A beautiful side table that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
+      (onBuy)="handleCardBuy($event)"
+      (onFavoriteChange)="handleCardFav($event)"
+    ></app-card>
+  </div>
 
 </main>
