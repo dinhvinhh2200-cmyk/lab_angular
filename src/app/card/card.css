@@ -8,7 +8,7 @@
 }
 
 .card_main {
-  width: 500px;
+  width: 400px;
   background-color: #96a8cc;
   margin-top: 30px;
   display: flex;
@@ -19,7 +19,7 @@
 .card_container {
   overflow: hidden;
   background-color: white;
-  width: 450px;
+  width: 360px;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -32,7 +32,7 @@
   /* height: 300px; */
   /* object-fit: cover; */
   width: 100%;       /* Chiếm hết chiều rộng khung chứa */
-  height: 250px;     /* Bạn có thể tăng giảm con số này tùy ý */
+  height: 200px;     /* Bạn có thể tăng giảm con số này tùy ý */
   /* Quan trọng nhất: Giữ tỉ lệ ảnh */
   object-fit: contain; 
   background-color: #f8f8f8;
@@ -74,7 +74,7 @@
 }
 
 .card_phara {
-  padding: 20px 20px;
+  padding: 15px 15px;
 }
 
 .card_price {
@@ -85,7 +85,7 @@
 
 .card_price p:nth-child(1) {
   color: #e31d1a;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   margin-bottom: var(--margin);
 }
@@ -179,7 +179,7 @@
   border: 1px solid #dee2e6;
   padding: 4px 4px;
   border-radius: 8px;
-  width: 140px;
+  width: 120px;
 }
 
 .card_quantity_title .btn {
@@ -219,9 +219,10 @@
 .btn-custom-buy {
   background-color: #1A326E;
   color: white;
-  padding: 8px 90px;
+  padding: 8px 40px;
   font-size: 12px;
   margin-left: auto;
+  white-space: nowrap;
 }
 
 
