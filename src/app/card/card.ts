@@ -54,7 +54,7 @@ export class Card {
 
   // xử lý nút chọn màu
   colorList = [
-    { id: 1, color: '#0D1D3E' },
+    { id: 1, color: '#000000' },
     { id: 2, color: '#FA3137' },
     { id: 3, color: '#73BB7B' },
     { id: 4, color: '#FCBB43' },

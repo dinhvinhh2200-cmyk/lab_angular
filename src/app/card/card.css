@@ -26,15 +26,16 @@
   box-shadow: 24px 24px 42px -42px rgba(0, 0, 0, 0.86);
 }
 
-#carouselExample {
-  margin-top: 10px;
-}
-
 .d-block {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 300px;
-  object-fit: cover;
+  /* height: 300px; */
+  /* object-fit: cover; */
+  width: 100%;       /* Chiếm hết chiều rộng khung chứa */
+  height: 250px;     /* Bạn có thể tăng giảm con số này tùy ý */
+  /* Quan trọng nhất: Giữ tỉ lệ ảnh */
+  object-fit: contain; 
+  background-color: #f8f8f8;
 }
 
 .carousel-control-prev,
