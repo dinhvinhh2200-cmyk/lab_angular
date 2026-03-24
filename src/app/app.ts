@@ -1,5 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 
+export interface CartItem {
+    id: number
+    title: string
+    price: number
+    quantity: number
+  }
+  
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
@@ -7,12 +14,14 @@ import { Component, signal } from '@angular/core';
   styleUrl: './app.css'
 })
 
+
 export class App {
 
   isGridView = signal(true);
   toggleLayout(isGrid: boolean) {
     this.isGridView.set(isGrid);
   }
+
 
   products = [
     {
@@ -149,5 +158,28 @@ export class App {
     }else {
       alert(`Bạn đã bỏ yêu thích sản phẩm ${event.title}`);
     }
+  }
+
+  cart = signal<CartItem[]>([])
+
+  totalAmount = computed(() => {
+    return this.cart().reduce((sum, item) => sum + (item.price * item.quantity), 0)
+  })
+
+  addToCart(event: {id: number, title: string, price: number, quantity: number}) {
+    this.cart.update(currentCart => {
+      const existingItem = currentCart.find(item => item.id === event.id)
+
+      if (existingItem) {
+        return currentCart.map(item => item.id === event.id ? {... item, quantity: event.quantity} : item)
+      }else {
+        return [...currentCart, {
+          id: event.id,
+          title: event.title,
+          price: event.price,
+          quantity: event.quantity
+        }]
+      }
+    })
   }
 }
