@@ -7,12 +7,12 @@ import { Component, input, signal, output } from '@angular/core';
   styleUrl: './card.css',
 })
 export class Card {
-  listImg = input<string[]>();
 
   card_price = input.required<number>();
   card_title = input.required<string>();
   card_mota = input.required<string>();
   discount = input<number>();
+  colorListInput = input.required<any[]>()
 
   // Chỉ số ảnh hiện tại
   currentIndex = signal(0);
@@ -40,44 +40,22 @@ prev() {
     }
   }
 
-  // xử lý nút chọn màu
-  colorList = [
-    {
-      id: 1,
-      color: '#000000',
-      images: [
-        '/ao_den_1.jpg',
-        '/ao_den_2.jpg',
-        '/ao_den_3.jpg'
-      ]
-    },
-      
-    {
-      id: 2,
-      color: '#FF0000',
-      images: [
-        '/ao_do_1.jpg',
-        '/ao_do_2.jpg',
-        '/ao_do_3.jpg'
-      ]
-    },
+  
+  selectColorId = signal<number>(0);
+  listImages = signal<string[]>([])
 
-    {
-      id: 3,
-      color: '#0000FF',
-      images: [
-        '/ao_xanh_1.jpg',
-        '/ao_xanh_2.jpg',
-        '/ao_xanh_3.jpg'
-      ]
+  ngOnInit () {
+    const defaultValue = this.colorListInput()[0] 
+    if (defaultValue) {
+      this.selectColorId.set(defaultValue.id)
+      this.listImages.set(defaultValue.images)
     }
-  ];
-  selectColorId = signal(this.colorList[0].id);
-  listImages = signal<string[]>(this.colorList[0].images)
+  }
+
   chooseColor(id: number) {
     this.selectColorId.set(id);
 
-    const selectColor = this.colorList.find((item) => item.id === id)
+    const selectColor = this.colorListInput().find((item) => item.id === id)
     if (selectColor) {
       this.listImages.set(selectColor.images)
        this.currentIndex.set(0)  

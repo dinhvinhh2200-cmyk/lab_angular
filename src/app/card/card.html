@@ -50,7 +50,7 @@
         <div class="card_dotColor">
           <p class="colorTitle">Color</p>
           <div class="dotColor">
-            @for (item of colorList; track item.id) {
+            @for (item of colorListInput(); track item.id) {
               <app-color-dot
                 [color]="item.color"
                 [isActive]="selectColorId() === item.id"

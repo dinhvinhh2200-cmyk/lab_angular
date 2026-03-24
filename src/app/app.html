@@ -2,41 +2,20 @@
 
 <main class="main">
   <div class="product-grid">
-    <app-card
-      [card_price]="15000"
-      card_title="T-Shirt"
-      [discount]="25000"
-      card_mota="A beautiful T-Shirt that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
-      (onBuy)="handleCardBuy($event)"
-      (onFavoriteChange)="handleCardFav($event)"
-    ></app-card>
 
-    <app-card
-      [card_price]="15000"
-      card_title="T-Shirt"
-      [discount]="25000"
-      card_mota="A beautiful T-Shirt that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
-      (onBuy)="handleCardBuy($event)"
-      (onFavoriteChange)="handleCardFav($event)"
-    ></app-card>
+    @for (item of products; track $index) {
+      <app-card
+        [card_price]="item.card_price"
+        [card_title]="item.card_title"
+        [discount]="item.discount"
+        [card_mota]="item.card_mota"
+        [colorListInput]="item.colors"
+        (onBuy)="handleCardBuy($event)"
+        (onFavoriteChange)="handleCardFav($event)"
+      ></app-card>
+    }
 
-    <app-card
-      [card_price]="15000"
-      card_title="T-Shirt"
-      [discount]="25000"
-      card_mota="A beautiful T-Shirt that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
-      (onBuy)="handleCardBuy($event)"
-      (onFavoriteChange)="handleCardFav($event)"
-    ></app-card>
-
-    <app-card
-      [card_price]="15000"
-      card_title="T-Shirt"
-      [discount]="25000"
-      card_mota="A beautiful T-Shirt that will perfectly fit your lovely bed room. with space for your books, tamps and electronic devices."
-      (onBuy)="handleCardBuy($event)"
-      (onFavoriteChange)="handleCardFav($event)"
-    ></app-card>
+    
   </div>
 
 </main>
