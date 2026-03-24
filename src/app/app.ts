@@ -9,6 +9,11 @@ import { Component, signal } from '@angular/core';
 
 export class App {
 
+  isGridView = signal(true);
+  toggleLayout(isGrid: boolean) {
+    this.isGridView.set(isGrid);
+  }
+
   products = [
     {
       id: 1,

@@ -31,10 +31,10 @@
   border-top-right-radius: 10px;
   /* height: 300px; */
   /* object-fit: cover; */
-  width: 100%;       /* Chiếm hết chiều rộng khung chứa */
-  height: 200px;     /* Bạn có thể tăng giảm con số này tùy ý */
+  width: 100%; /* Chiếm hết chiều rộng khung chứa */
+  height: 200px; /* Bạn có thể tăng giảm con số này tùy ý */
   /* Quan trọng nhất: Giữ tỉ lệ ảnh */
-  object-fit: contain; 
+  object-fit: contain;
   background-color: #f8f8f8;
 }
 
@@ -189,8 +189,6 @@
   padding: 3px 10px;
 }
 
-
-
 .card_quantity_title .form-control {
   border: none;
   font-size: 14px;
@@ -199,13 +197,13 @@
 }
 
 .card_buy {
-    margin-top: 15px;
-    display:flex;
-    align-items: center;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 5px 20px;
-    gap: 0 12px;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 5px 20px;
+  gap: 0 12px;
 }
 
 .top-0 {
@@ -217,7 +215,7 @@
 }
 
 .btn-custom-buy {
-  background-color: #1A326E;
+  background-color: #1a326e;
   color: white;
   padding: 8px 40px;
   font-size: 12px;
@@ -244,3 +242,83 @@
   display: block;
 }
 
+
+
+/* cho phần layout dạng danh sách */
+.product-list-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+:host(.is-list-view) .card_main {
+  width: 50% !important;
+}
+
+:host(.is-list-view) .card_container {
+  display: flex;
+  flex-direction: row;
+  width: 90% !important;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background: #fff;
+  align-items: flex-start;
+}
+
+/* ===== SLIDER BÊN TRÁI ===== */
+:host(.is-list-view) .my-carousel-wrapper {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+:host(.is-list-view) .d-block {
+  height: 200px;
+  object-fit: contain;
+}
+
+/* ===== CONTENT BÊN PHẢI ===== */
+:host(.is-list-view) .card_phara {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* tên + rating */
+:host(.is-list-view) .card_name_card_rate {
+  align-items: flex-start;
+}
+
+/* mô tả */
+:host(.is-list-view) .mota {
+  font-size: 12px;
+}
+
+/* màu + size */
+:host(.is-list-view) .dotColor,
+:host(.is-list-view) .sizeNumber {
+  justify-content: flex-start;
+}
+
+/* số lượng */
+:host(.is-list-view) .card_quantity_num {
+  margin-top: 10px;
+}
+
+/* nút mua */
+:host(.is-list-view) .card_buy {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+}
+
+/* nút BUY đẩy sang phải */
+:host(.is-list-view) .btn-custom-buy {
+  margin-left: auto;
+}

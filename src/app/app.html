@@ -1,8 +1,26 @@
 <style></style>
 
 <main class="main">
-  <div class="product-grid">
 
+  <div class="d-flex justify-content-end mt-4">
+    <div class="btn-group">
+      <button 
+        class="btn btn-outline-dark" 
+        [class.active]="isGridView()" 
+        (click)="toggleLayout(true)">
+        <i class="bi bi-grid-3x3-gap"></i> Dạng Lưới
+      </button>
+      <button 
+        class="btn btn-outline-dark" 
+        [class.active]="!isGridView()" 
+        (click)="toggleLayout(false)">
+        <i class="bi bi-list-ul"></i> Dạng Danh Sách
+      </button>
+    </div>
+  </div>
+
+  @if (isGridView()) {
+    <div class="product-grid">
     @for (item of products; track $index) {
       <app-card
         [card_price]="item.card_price"
@@ -14,8 +32,22 @@
         (onFavoriteChange)="handleCardFav($event)"
       ></app-card>
     }
-
-    
   </div>
+  }@else {
+    <div class="product-list-container">
+      @for (item of products; track item.id) {
+        <app-card
+          class="is-list-view" 
+          [card_price]="item.card_price"
+          [card_title]="item.card_title"
+          [discount]="item.discount"
+          [card_mota]="item.card_mota"
+          [colorListInput]="item.colors"
+          (onBuy)="handleCardBuy($event)"
+          (onFavoriteChange)="handleCardFav($event)"
+        ></app-card>
+      }
+    </div>
+  }
 
 </main>
