@@ -86,10 +86,10 @@ prev() {
 
   // xử lý nút chọn size
   sizeList = [
-    { id: 1, size: '45*53' },
-    { id: 2, size: '42*40' },
-    { id: 3, size: '40*40' },
-    { id: 4, size: '35*49' },
+    { id: 1, size: 'M' },
+    { id: 2, size: 'L' },
+    { id: 3, size: 'XL' },
+    { id: 4, size: '2XL' },
   ];
   selectSizeId = signal<number>(1);
   chooseSize(id: number) {

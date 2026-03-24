@@ -225,4 +225,22 @@
   white-space: nowrap;
 }
 
+.my-carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.my-carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.my-carousel-item {
+  min-width: 100%;
+}
+
+.my-carousel-item img {
+  width: 100%;
+  display: block;
+}
 

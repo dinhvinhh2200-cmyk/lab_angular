@@ -1,22 +1,20 @@
 <body class="card_body">
   <main class="card_main">
     <div class="card_container">
-      <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
+      <div class="my-carousel-wrapper">
+        <div class="my-carousel-track" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
           @for (img of listImages(); track $index; let i = $index) {
-            <div class="carousel-item" [class.active]="i === currentIndex()">
+            <div class="my-carousel-item" [class.active]="i === currentIndex()">
               <img [src]="img" class="d-block w-100" alt="ảnh số {{ i + 1 }}" />
             </div>
           }
 
-          <p class="card_number_slide"> {{ currentIndex() + 1 }}/{{listImages().length}}</p>
         </div>
+        <p class="card_number_slide"> {{ currentIndex() + 1 }}/{{listImages().length}}</p>
         <button
           class="carousel-control-prev"
           type="button"
-          data-bs-target="#carouselExample"
           (click)="prev()"
-          data-bs-slide="prev"
         >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -24,9 +22,7 @@
         <button
           class="carousel-control-next"
           type="button"
-          data-bs-target="#carouselExample"
           (click)="next()"
-          data-bs-slide="next"
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
@@ -64,7 +60,7 @@
           </div>
         </div>
         <div class="card_Size">
-          <p class="titleSize">Size (cm)</p>
+          <p class="titleSize">Size</p>
           <div class="sizeNumber">
             @for (item of sizeList; track item.id) {
               <app-card-size
