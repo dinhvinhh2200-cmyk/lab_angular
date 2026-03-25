@@ -29,13 +29,17 @@ export class Card {
   }
 
   // xử lý tăng giảm quantity
+
   quantily = signal(1);
+  onQuantityChange = output<{ id: number, quantity: number }>();
   increase() {
     this.quantily.update((initValue) => initValue + 1);
+    this.onQuantityChange.emit({ id: 0, quantity: this.quantily() });
   }
   decrease() {
     if (this.quantily() > 1) {
       this.quantily.update((initValue) => initValue - 1);
+      this.onQuantityChange.emit({ id: 0, quantity: this.quantily() });
     }
   }
 
@@ -91,9 +95,9 @@ export class Card {
       id: 0, 
       title: this.card_title(),
       price: this.card_price(),
-      quantity: this.quantily(), //
+      quantity: this.quantily(), 
     });
   }
+
 }
 
-// bây giờ tôi muốn là khi bấm vào cái nút chọn màu sắc thì nó sẽ hiện ra cái slider chứa 3 cái slides có sản phẩm của màu đó vd như tôi bấm vào nút color màu đen thì nó sẽ có slider chứa 3 cái slides lần lượt mỗi cái là cái hình của sản phẩm màu đó tương tự như nút đỏ và xanh

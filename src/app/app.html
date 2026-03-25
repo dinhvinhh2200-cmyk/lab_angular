@@ -54,6 +54,7 @@
         [card_mota]="item.card_mota"
         [colorListInput]="item.colors"
         (onBuy)="addToCart({id: item.id, title: $event.title, price: $event.price, quantity: $event.quantity})"
+        (onQuantityChange)="updateLiveQuantity({id: item.id, quantity: $event.quantity})"
         (onFavoriteChange)="handleCardFav($event)"
       ></app-card>
     }
@@ -69,6 +70,7 @@
           [card_mota]="item.card_mota"
           [colorListInput]="item.colors"
           (onBuy)="addToCart({id: item.id, title: $event.title, price: $event.price, quantity: $event.quantity})"
+          (onQuantityChange)="updateLiveQuantity({id: item.id, quantity: $event.quantity})"
           (onFavoriteChange)="handleCardFav($event)"
         ></app-card>
       }
