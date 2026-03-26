@@ -30,16 +30,16 @@ export class Card {
 
   // xử lý tăng giảm quantity
 
-  quantily = signal(1);
+  quantily = signal(0);
   onQuantityChange = output<{ id: number, quantity: number }>();
   increase() {
     this.quantily.update((initValue) => initValue + 1);
-    this.onQuantityChange.emit({ id: 0, quantity: this.quantily() });
+    this.handleBuyNow();
   }
   decrease() {
     if (this.quantily() > 1) {
       this.quantily.update((initValue) => initValue - 1);
-      this.onQuantityChange.emit({ id: 0, quantity: this.quantily() });
+      this.handleBuyNow();
     }
   }
 

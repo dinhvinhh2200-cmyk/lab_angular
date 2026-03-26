@@ -333,7 +333,6 @@ export class App {
         ];
       }
     });
-    alert(`Đã thêm sản phẩm ${event.title} vào giỏ hàng thành công!`);
   }
 
 
