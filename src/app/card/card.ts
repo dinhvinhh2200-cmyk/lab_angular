@@ -12,6 +12,9 @@ export class Card {
   card_mota = input.required<string>();
   discount = input<number>();
   colorListInput = input.required<any[]>();
+  id = input.required<number>();
+
+  isDetailView = input<boolean>(false)
 
   // Chỉ số ảnh hiện tại
   currentIndex = signal(0);

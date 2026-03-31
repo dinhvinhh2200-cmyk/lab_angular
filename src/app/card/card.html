@@ -41,61 +41,72 @@
         <p class="mota">
           {{ card_mota() }}
         </p>
-        <div class="card_dotColor">
-          <p class="colorTitle">Color</p>
-          <div class="dotColor">
-            @for (item of colorListInput(); track item.id) {
-              <app-color-dot
-                [color]="item.color"
-                [isActive]="selectColorId() === item.id"
-                (click)="chooseColor(item.id)"
-              ></app-color-dot>
-            }
+
+        @if (isDetailView()) {
+          <div class="card_dotColor">
+            <p class="colorTitle">Color</p>
+            <div class="dotColor">
+              @for (item of colorListInput(); track item.id) {
+                <app-color-dot
+                  [color]="item.color"
+                  [isActive]="selectColorId() === item.id"
+                  (click)="chooseColor(item.id)"
+                ></app-color-dot>
+              }
+            </div>
           </div>
-        </div>
-        <div class="card_Size">
-          <p class="titleSize">Size</p>
-          <div class="sizeNumber">
-            @for (item of sizeList; track item.id) {
-              <app-card-size
-                [isActive]="selectSizeId() === item.id"
-                (click)="chooseSize(item.id)"
-                >{{ item.size }}</app-card-size
+        }
+
+
+        @if (isDetailView()) {
+          <div class="card_Size">
+            <p class="titleSize">Size</p>
+            <div class="sizeNumber">
+              @for (item of sizeList; track item.id) {
+                <app-card-size
+                  [isActive]="selectSizeId() === item.id"
+                  (click)="chooseSize(item.id)"
+                  >{{ item.size }}</app-card-size
+                >
+              }
+            </div>
+          </div>
+        }
+
+        @if (isDetailView()) {
+          <div class="card_quantity">
+            <div class="card_quantity_num">
+              <p>Quantity</p>
+              <p>In Stock</p>
+            </div>
+            <div class="card_quantity_title">
+              <button
+                (click)="decrease()"
+                class="btn btn-outline-secondary"
+                type="button"
+                id="btn-minus"
               >
-            }
+                −
+              </button>
+              <input
+                type="number"
+                class="form-control text-center"
+                value="{{ quantily() }}"
+                id="input-quantity"
+                readonly
+              />
+              <button
+                (click)="increase()"
+                class="btn btn-outline-secondary"
+                type="button"
+                id="btn-plus"
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="card_quantity">
-          <div class="card_quantity_num">
-            <p>Quantity</p>
-            <p>In Stock</p>
-          </div>
-          <div class="card_quantity_title">
-            <button
-              (click)="decrease()"
-              class="btn btn-outline-secondary"
-              type="button"
-              id="btn-minus"
-            >
-              −
-            </button>
-            <input
-              type="number"
-              class="form-control text-center"
-              value="{{ quantily() }}"
-              id="input-quantity"
-              readonly
-            />
-            <button
-              (click)="increase()"
-              class="btn btn-outline-secondary"
-              type="button"
-              id="btn-plus"
-            >
-              +
-            </button>
-          </div>
-        </div>
+        }
+
         <div class="card_buy">
           <button
             (click)="toggleFavorite()"
@@ -124,7 +135,7 @@
             >
             </span>
           </button>
-          <button class="btn btn-custom-buy" >Xem chi tiết</button>
+          <button class="btn btn-custom-buy" [routerLink]="['/products', id()]">Xem chi tiết</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  @if (product()) {
+    <div class="row">
+      <app-card 
+        [id]="product().id"
+        [isDetailView]="true"
+        [card_title]="product().card_title"
+        [card_price]="product().card_price"
+        [card_mota]="product().card_mota"
+        [discount]="product().discount"
+        [colorListInput]="product().colors">
+      </app-card>
+
+      <div class="product-description-extra mt-4">
+        <hr>
+        <h4>Chi tiết sản phẩm</h4>
+        <table class="table table-striped">
+          <tr>
+            <td>Chất liệu</td>
+            <td>Cotton cao cấp</td>
+          </tr>
+          <tr>
+            <td>Kiểu dáng</td>
+            <td>{{ product().card_title }}</td>
+          </tr>
+          <tr>
+            <td>Bảng Size có sẵn</td>
+            <td>M, L, XL, 2XL</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  } @else {
+    <p>Đang tải sản phẩm hoặc sản phẩm không tồn tại...</p>
+  }
+</div>

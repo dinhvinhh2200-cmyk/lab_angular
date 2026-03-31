@@ -9,9 +9,19 @@ import { CardSize } from './card-size/card-size';
 import { Nav } from './nav/nav';
 import { HomeComponents } from './home-components/home-components';
 import { ProductComponents } from './product-components/product-components';
+import { ProductDetail } from './product-detail/product-detail';
 
 @NgModule({
-  declarations: [App, Card, ColorDot, CardSize, Nav, HomeComponents, ProductComponents],
+  declarations: [
+    App,
+    Card,
+    ColorDot,
+    CardSize,
+    Nav,
+    HomeComponents,
+    ProductComponents,
+    ProductDetail,
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

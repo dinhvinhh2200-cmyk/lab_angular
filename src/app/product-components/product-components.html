@@ -44,6 +44,7 @@
     <div class="product-grid">
     @for (item of products; track $index) {
       <app-card
+        [id]="item.id"
         [card_price]="item.card_price"
         [card_title]="item.card_title"
         [discount]="item.discount"
@@ -59,6 +60,7 @@
       @for (item of products; track item.id) {
         <app-card
           class="is-list-view" 
+          [id]="item.id"
           [card_price]="item.card_price"
           [card_title]="item.card_title"
           [discount]="item.discount"
