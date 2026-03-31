@@ -1,0 +1,30 @@
+.info {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 16px;
+
+  color: white;
+  text-align: center;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.info:hover {
+  transform: translateY(-5px);
+}
+
+.info-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.info-msv {
+  font-size: 16px;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
