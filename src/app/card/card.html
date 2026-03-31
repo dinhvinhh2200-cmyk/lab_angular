@@ -2,28 +2,22 @@
   <main class="card_main">
     <div class="card_container">
       <div class="my-carousel-wrapper">
-        <div class="my-carousel-track" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+        <div
+          class="my-carousel-track"
+          [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'"
+        >
           @for (img of listImages(); track $index; let i = $index) {
             <div class="my-carousel-item" [class.active]="i === currentIndex()">
               <img [src]="img" class="d-block w-100" alt="ảnh số {{ i + 1 }}" />
             </div>
           }
-
         </div>
-        <p class="card_number_slide"> {{ currentIndex() + 1 }}/{{listImages().length}}</p>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          (click)="prev()"
-        >
+        <p class="card_number_slide">{{ currentIndex() + 1 }}/{{ listImages().length }}</p>
+        <button class="carousel-control-prev" type="button" (click)="prev()">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          (click)="next()"
-        >
+        <button class="carousel-control-next" type="button" (click)="next()">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -118,12 +112,10 @@
 
             @if (isFavorite()) {
               <span
-              class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
-            >
-            </span>
+                class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
+              >
+              </span>
             }
-
-            
           </button>
           <button type="button" class="btn position-relative">
             <i class="bi bi-bag" style="font-size: 1.5rem"></i>
