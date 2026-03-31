@@ -17,6 +17,13 @@ export interface CartItem {
 export class ProductDetail {
   private router = inject(ActivatedRoute)
   product = signal<any>(null);
+  selectedColorIndex = signal<number>(0);
+  selectedSize = signal<string>('M');
+  quantity = signal<number>(0);
+  cart = signal<CartItem[]>([]);
+
+
+
   ngOnInit () {
     const id = Number(this.router.snapshot.paramMap.get('id'))
 
@@ -303,42 +310,38 @@ export class ProductDetail {
   }
 
 
-  cart = signal<CartItem[]>([]);
 
-  handleCardFav(event: { title: string; isAdd: boolean }) {
-    if (event.isAdd) {
-      alert(`Bạn đã thêm ${event.title} vào mục yêu thích thành công!`);
-    } else {
-      alert(`Bạn đã bỏ yêu thích sản phẩm ${event.title}`);
+  // Lấy danh sách ảnh dựa trên màu đang chọn
+  currentImages = computed(() => {
+    const prod = this.product();
+    if (prod && prod.colors[this.selectedColorIndex()]) {
+      return prod.colors[this.selectedColorIndex()].images;
+    }
+    return [];
+  });
+
+  // Tính tổng tiền cho sản phẩm hiện tại đang xem
+  currentTotal = computed(() => {
+    const prod = this.product();
+    return prod ? prod.card_price * this.quantity() : 0;
+  });
+
+  // Các hàm điều khiển
+  selectColor(index: number) {
+    this.selectedColorIndex.set(index);
+    this.quantity.set(0); // Reset số lượng khi đổi màu (tùy chọn)
+  }
+
+  changeQuantity(amount: number) {
+    const newQty = this.quantity() + amount;
+    if (newQty >= 1) {
+      this.quantity.set(newQty);
     }
   }
 
+
   
-  totalAmount = computed(() => {
-    return this.cart().reduce((sum, item) => sum + item.price * item.quantity, 0);
-  });
-
-  addToCart(event: { id: number; title: string; price: number; quantity: number }) {
-    this.cart.update((currentCart) => {
-      const existingItem = currentCart.find((item) => item.id === event.id);
-
-      if (existingItem) {
-        return currentCart.map((item) =>
-          item.id === event.id ? { ...item, quantity: event.quantity } : item,
-        );
-      } else {
-        return [
-          ...currentCart,
-          {
-            id: event.id,
-            title: event.title,
-            price: event.price,
-            quantity: event.quantity,
-          },
-        ];
-      }
-    });
-  }
+  
 
   
 }

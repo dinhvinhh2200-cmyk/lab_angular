@@ -10,6 +10,7 @@ import { Nav } from './nav/nav';
 import { HomeComponents } from './home-components/home-components';
 import { ProductComponents } from './product-components/product-components';
 import { ProductDetail } from './product-detail/product-detail';
+import { PageNotFoundComponent } from './page-not-found-component/page-not-found-component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ProductDetail } from './product-detail/product-detail';
     HomeComponents,
     ProductComponents,
     ProductDetail,
+    PageNotFoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
