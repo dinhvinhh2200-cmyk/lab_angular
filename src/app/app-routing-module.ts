@@ -6,7 +6,7 @@ import { ProductComponents } from './product-components/product-components';
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponents},
-  {path: 'products', component: ProductComponents}
+  {path: 'products', component: ProductComponents},
 ];
 
 @NgModule({
