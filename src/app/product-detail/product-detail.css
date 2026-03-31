@@ -1,0 +1,43 @@
+/* Tùy chỉnh ảnh trong slider */
+.carousel-item img {
+  height: 500px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Bảng thông số */
+.specs-table {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.table td {
+  padding: 12px 0;
+  vertical-align: middle;
+}
+
+/* Các chấm màu sắc xem trước */
+.color-preview {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+/* Hiệu ứng giá tiền */
+.price-section del {
+  font-size: 1.1rem;
+}
+
+/* Nút bấm */
+.btn-dark {
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.btn-dark:hover {
+  transform: translateY(-2px);
+}

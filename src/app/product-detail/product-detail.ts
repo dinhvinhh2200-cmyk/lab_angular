@@ -1,5 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal , computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+}
 
 @Component({
   selector: 'app-product-detail',
@@ -295,4 +302,43 @@ export class ProductDetail {
     this.product.set(allProduct.find((product) => product.id === id))
   }
 
+
+  cart = signal<CartItem[]>([]);
+
+  handleCardFav(event: { title: string; isAdd: boolean }) {
+    if (event.isAdd) {
+      alert(`Bạn đã thêm ${event.title} vào mục yêu thích thành công!`);
+    } else {
+      alert(`Bạn đã bỏ yêu thích sản phẩm ${event.title}`);
+    }
+  }
+
+  
+  totalAmount = computed(() => {
+    return this.cart().reduce((sum, item) => sum + item.price * item.quantity, 0);
+  });
+
+  addToCart(event: { id: number; title: string; price: number; quantity: number }) {
+    this.cart.update((currentCart) => {
+      const existingItem = currentCart.find((item) => item.id === event.id);
+
+      if (existingItem) {
+        return currentCart.map((item) =>
+          item.id === event.id ? { ...item, quantity: event.quantity } : item,
+        );
+      } else {
+        return [
+          ...currentCart,
+          {
+            id: event.id,
+            title: event.title,
+            price: event.price,
+            quantity: event.quantity,
+          },
+        ];
+      }
+    });
+  }
+
+  
 }

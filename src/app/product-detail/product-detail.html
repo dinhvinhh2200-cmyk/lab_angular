@@ -1,36 +1,106 @@
+<header class="p-3 bg-light border-bottom sticky-top">
+  <div class="container">
+    <h5>Giỏ hàng của bạn</h5>
+    
+    @if (cart().length === 0) {
+      <p class="text-muted">Chưa có sản phẩm nào được chọn.</p>
+    } @else {
+      <ul class="list-unstyled">
+        @for (item of cart(); track item.id) {
+          <li class="mb-1">
+            <strong>{{ item.title }}</strong> ({{ item.price | number }}đ) 
+            - SL: {{ item.quantity }} 
+            <i class="bi bi-arrow-right"></i> 
+            <span>Tổng: {{ (item.price * item.quantity) | number }}đ</span>
+          </li>
+        }
+      </ul>
+      <hr>
+      <div class="fw-bold text-danger" style="font-size: 1.2rem;">
+        TỔNG SỐ TIỀN: {{ totalAmount() | number }}đ
+      </div>
+    }
+  </div>
+</header>
+
 <div class="container mt-5">
   @if (product()) {
     <div class="row">
-      <app-card 
-        [id]="product().id"
-        [isDetailView]="true"
-        [card_title]="product().card_title"
-        [card_price]="product().card_price"
-        [card_mota]="product().card_mota"
-        [discount]="product().discount"
-        [colorListInput]="product().colors">
-      </app-card>
+      <div class="col-md-6">
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @for (color of product().colors; track color.id; let isFirst = $first) {
+              @for (img of color.images; track img; let imgIndex = $index) {
+                <div class="carousel-item" [class.active]="isFirst && imgIndex === 0">
+                  <img [src]="img" class="d-block w-100 rounded shadow-sm" [alt]="product().card_title">
+                </div>
+              }
+            }
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
 
-      <div class="product-description-extra mt-4">
-        <hr>
-        <h4>Chi tiết sản phẩm</h4>
-        <table class="table table-striped">
-          <tr>
-            <td>Chất liệu</td>
-            <td>Cotton cao cấp</td>
-          </tr>
-          <tr>
-            <td>Kiểu dáng</td>
-            <td>{{ product().card_title }}</td>
-          </tr>
-          <tr>
-            <td>Bảng Size có sẵn</td>
-            <td>M, L, XL, 2XL</td>
-          </tr>
-        </table>
+      <div class="col-md-6">
+        <h2 class="fw-bold">{{ product().card_title }}</h2>
+        <div class="price-section mb-3">
+          <span class="text-danger fs-3 fw-bold">{{ product().card_price | number }}đ</span>
+          <del class="text-muted ms-2">{{ product().discount | number }}đ</del>
+        </div>
+        
+        <p class="text-muted">{{ product().card_mota }}</p>
+
+        <div class="specs-table mt-4">
+          <h5 class="border-bottom pb-2">Thông số sản phẩm</h5>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td class="text-secondary" style="width: 30%;">Chất liệu</td>
+                <td class="fw-medium">Cotton cao cấp, thoáng mát</td>
+              </tr>
+              <tr>
+                <td class="text-secondary">Kiểu dáng</td>
+                <td class="fw-medium">{{ product().card_title }}</td>
+              </tr>
+              <tr>
+                <td class="text-secondary">Kích cỡ (Size)</td>
+                <td>
+                  <span class="badge bg-light text-dark border me-1">M</span>
+                  <span class="badge bg-light text-dark border me-1">L</span>
+                  <span class="badge bg-light text-dark border me-1">XL</span>
+                  <span class="badge bg-light text-dark border">2XL</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-secondary">Màu sắc</td>
+                <td>
+                  <div class="d-flex gap-2">
+                    @for (c of product().colors; track c.id) {
+                      <div class="color-preview" [style.background-color]="c.color"></div>
+                    }
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-secondary">Tình trạng</td>
+                <td class="text-success fw-bold">Còn hàng</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <button class="btn btn-dark btn-lg w-100 mt-3">Thêm vào giỏ hàng</button>
       </div>
     </div>
   } @else {
-    <p>Đang tải sản phẩm hoặc sản phẩm không tồn tại...</p>
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Đang tải sản phẩm...</p>
+    </div>
   }
 </div>
