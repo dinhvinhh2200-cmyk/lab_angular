@@ -4,82 +4,8 @@
 
   <app-nav></app-nav>
 
-  <app-home-components></app-home-components>
-   <!-- <router-outlet></router-outlet> -->
-
-  <header class="p-3 bg-light border-bottom">
-  <div class="container">
-    <h5>Giỏ hàng của bạn</h5>
-    
-    @if (cart().length === 0) {
-      <p class="text-muted">Chưa có sản phẩm nào được chọn.</p>
-    } @else {
-      <ul class="list-unstyled">
-        @for (item of cart(); track item.id) {
-          <li class="mb-1">
-            <strong>{{ item.title }}</strong> ({{ item.price | number }}đ) 
-            - SL: {{ item.quantity }} 
-            <i class="bi bi-arrow-right"></i> 
-            <span>Tổng: {{ (item.price * item.quantity) | number }}đ</span>
-          </li>
-        }
-      </ul>
-      <hr>
-      <div class="fw-bold text-danger" style="font-size: 1.2rem;">
-        TỔNG SỐ TIỀN: {{ totalAmount() | number }}đ
-      </div>
-    }
-  </div>
-</header>
-
-  <div class="d-flex justify-content-end mt-4">
-    <div class="btn-group">
-      <button 
-        class="btn btn-outline-dark" 
-        [class.active]="isGridView()" 
-        (click)="toggleLayout(true)">
-        <i class="bi bi-grid-3x3-gap"></i> Dạng Lưới
-      </button>
-      <button 
-        class="btn btn-outline-dark" 
-        [class.active]="!isGridView()" 
-        (click)="toggleLayout(false)">
-        <i class="bi bi-list-ul"></i> Dạng Danh Sách
-      </button>
-    </div>
-  </div>
-
-  @if (isGridView()) {
-    <div class="product-grid">
-    @for (item of products; track $index) {
-      <app-card
-        [card_price]="item.card_price"
-        [card_title]="item.card_title"
-        [discount]="item.discount"
-        [card_mota]="item.card_mota"
-        [colorListInput]="item.colors"
-        (onBuy)="addToCart({id: item.id, title: $event.title, price: $event.price, quantity: $event.quantity})"
-        (onQuantityChange)="updateLiveQuantity({id: item.id, quantity: $event.quantity})"
-        (onFavoriteChange)="handleCardFav($event)"
-      ></app-card>
-    }
-  </div>
-  }@else {
-    <div class="product-list-container">
-      @for (item of products; track item.id) {
-        <app-card
-          class="is-list-view" 
-          [card_price]="item.card_price"
-          [card_title]="item.card_title"
-          [discount]="item.discount"
-          [card_mota]="item.card_mota"
-          [colorListInput]="item.colors"
-          (onBuy)="addToCart({id: item.id, title: $event.title, price: $event.price, quantity: $event.quantity})"
-          (onQuantityChange)="updateLiveQuantity({id: item.id, quantity: $event.quantity})"
-          (onFavoriteChange)="handleCardFav($event)"
-        ></app-card>
-      }
-    </div>
-  }
+ 
+    <router-outlet></router-outlet>
+  
 
 </main>

@@ -8,9 +8,10 @@ import { ColorDot } from './color-dot/color-dot';
 import { CardSize } from './card-size/card-size';
 import { Nav } from './nav/nav';
 import { HomeComponents } from './home-components/home-components';
+import { ProductComponents } from './product-components/product-components';
 
 @NgModule({
-  declarations: [App, Card, ColorDot, CardSize, Nav, HomeComponents],
+  declarations: [App, Card, ColorDot, CardSize, Nav, HomeComponents, ProductComponents],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
