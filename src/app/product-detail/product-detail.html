@@ -1,88 +1,253 @@
-<div class="container mt-5">
-  @if (product()) {
-    <div class="row">
-      <div class="col-md-6">
-        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            @for (img of currentImages(); track img; let i = $index) {
-              <div class="carousel-item" [class.active]="i === 0">
-                <img [src]="img" class="d-block w-100 rounded shadow-sm" [alt]="product().card_title">
-              </div>
-            }
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          </button>
+<div class="container my-5" *ngIf="product()">
+  <div class="row g-4">
+    <div class="col-md-5">
+      <div
+        id="shopeeCarousel"
+        class="carousel slide border rounded shadow-sm overflow-hidden"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          @for (img of currentImages(); track $index) {
+            <div class="carousel-item" [class.active]="$index === 0">
+              <img [src]="img" class="d-block w-100" style="height: 500px; object-fit: cover" />
+            </div>
+          }
         </div>
-      </div>
-
-      <div class="col-md-6">
-        <h2 class="fw-bold">{{ product().card_title }}</h2>
-        <div class="price-section mb-3">
-          <span class="text-danger fs-3 fw-bold">{{ product().card_price | number }}đ</span>
-          <del class="text-muted ms-2">{{ product().discount | number }}đ</del>
-        </div>
-        
-        <p class="text-muted">{{ product().card_mota }}</p>
-
-        <div class="specs-table mt-4">
-          <h5 class="border-bottom pb-2">Tùy chọn sản phẩm</h5>
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td class="text-secondary" style="width: 30%;">Màu sắc</td>
-                <td>
-                  <div class="d-flex gap-2">
-                    @for (c of product().colors; track c.id; let i = $index) {
-                      <div 
-                        class="color-preview" 
-                        [style.background-color]="c.color"
-                        [class.active-selection]="selectedColorIndex() === i"
-                        (click)="selectColor(i)">
-                      </div>
-                    }
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-secondary">Kích cỡ</td>
-                <td>
-                  @for (size of ['M', 'L', 'XL', '2XL']; track size) {
-                    <button 
-                      class="btn btn-sm btn-outline-dark me-1"
-                      [class.active]="selectedSize() === size"
-                      (click)="selectedSize.set(size)">
-                      {{ size }}
-                    </button>
-                  }
-                </td>
-              </tr>
-              <tr>
-                <td class="text-secondary">Số lượng</td>
-                <td>
-                  <div class="input-group input-group-sm" style="width: 120px;">
-                    <button class="btn btn-outline-secondary" (click)="changeQuantity(-1)">-</button>
-                    <input type="text" class="form-control text-center" [value]="quantity()" readonly>
-                    <button class="btn btn-outline-secondary" (click)="changeQuantity(1)">+</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-secondary">Tạm tính</td>
-                <td class="text-danger fw-bold fs-5">{{ currentTotal() | number }}đ</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <button class="btn btn-dark btn-lg w-100 mt-3">
-          Thêm vào giỏ hàng
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#shopeeCarousel"
+          data-bs-slide="prev"
+        >
+          <span
+            class="carousel-control-prev-icon bg-dark rounded-circle p-2"
+            aria-hidden="true"
+          ></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#shopeeCarousel"
+          data-bs-slide="next"
+        >
+          <span
+            class="carousel-control-next-icon bg-dark rounded-circle p-2"
+            aria-hidden="true"
+          ></span>
         </button>
       </div>
+
+      <div class="d-flex gap-2 mt-3 overflow-auto">
+        @for (img of currentImages(); track $index) {
+          <img
+            [src]="img"
+            class="border rounded cursor-pointer"
+            style="width: 70px; height: 70px; object-fit: cover"
+            data-bs-target="#shopeeCarousel"
+            [attr.data-bs-slide-to]="$index"
+          />
+        }
+      </div>
     </div>
-  } @else {
-    }
+
+    <div class="col-md-7 ps-md-5">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <span class="badge bg-danger">Yêu thích</span>
+        <h1 class="fs-4 fw-normal mb-0">{{ product().card_title }}</h1>
+      </div>
+
+      <div class="bg-light p-3 rounded d-flex align-items-center gap-3 mb-4">
+        <span class="text-muted text-decoration-line-through fs-6"
+          >{{ product().discount | number }}đ</span
+        >
+        <span class="text-danger fw-bold fs-2">{{ product().card_price | number }}đ</span>
+      </div>
+
+      <div class="mb-4 d-flex align-items-start">
+        <label class="text-muted mt-2" style="width: 110px">Phân loại</label>
+        <div class="flex-grow-1 d-flex flex-wrap gap-2">
+          @for (colorObj of product().colors; track $index) {
+            <button
+              class="variant-btn"
+              [class.active]="selectedColorIndex() === $index"
+              (click)="selectColor($index)"
+            >
+              <img [src]="colorObj.images[0]" class="variant-img" />
+              {{ colorObj.nameColor }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="mb-4 d-flex align-items-start">
+        <label class="text-muted mt-2" style="width: 110px">Kích cỡ</label>
+        <div class="flex-grow-1 d-flex flex-wrap gap-2">
+          @for (s of ['S', 'M', 'L', 'XL', 'XXL']; track s) {
+            <button
+              class="variant-btn text-center justify-content-center"
+              [class.active]="selectedSize() === s"
+              (click)="selectedSize.set(s)"
+            >
+              {{ s }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="mb-5 d-flex align-items-center">
+        <label class="text-muted" style="width: 110px">Số lượng</label>
+        <div class="d-flex align-items-center gap-3">
+          <div class="input-group" style="width: 120px">
+            <button class="btn btn-outline-secondary" (click)="changeQuantity(-1)">-</button>
+            <input type="text" class="form-control text-center p-0" [value]="quantity()" readonly />
+            <button class="btn btn-outline-secondary" (click)="changeQuantity(1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex gap-3">
+        <button class="btn btn-add-cart py-3 px-4">
+          <i class="bi bi-cart-plus fs-5 me-2"></i> Thêm Vào Giỏ Hàng
+        </button>
+        <button class="btn btn-buy-now py-3 px-5">Mua Ngay</button>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="bg-white p-4 shadow-sm rounded">
+          <div class="section-info mb-5">
+            <h2 class="section-title text-uppercase mb-4">Chi tiết sản phẩm</h2>
+            <div class="d-flex flex-column gap-3 ms-2">
+              <div class="d-flex border-bottom pb-2">
+                <span class="text-muted" style="width: 200px">Danh Mục</span>
+                <span class="text-primary"
+                  >Shopee > Thời Trang Nam > Áo > {{ product().card_title }}</span
+                >
+              </div>
+              <div class="d-flex border-bottom pb-2">
+                <span class="text-muted" style="width: 200px">Chất liệu</span>
+                <span>Cotton, Polyester</span>
+              </div>
+              <div class="d-flex border-bottom pb-2">
+                <span class="text-muted" style="width: 200px">Mẫu</span>
+                <span>Trơn</span>
+              </div>
+              <div class="d-flex border-bottom pb-2">
+                <span class="text-muted" style="width: 200px">Phong cách</span>
+                <span>Cơ bản, Hàn Quốc</span>
+              </div>
+
+              <div class="d-flex border-bottom pb-2">
+                <span class="text-muted" style="width: 200px">Gửi từ</span>
+                <span>Quận 12, TP. Hồ Chí Minh</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-info">
+            <h2 class="section-title text-uppercase mb-4">Mô tả sản phẩm</h2>
+            <div class="product-description ms-2 line-height-lg text-dark">
+              <p>{{ product().card_mota }}</p>
+
+              <p class="fw-bold mt-4">CHÍNH SÁCH CỦA SHOP:</p>
+              <ul>
+                <li>Hỗ trợ đổi trả trong vòng 7 ngày nếu có lỗi từ nhà sản xuất.</li>
+                <li>Cam kết hàng giống hình 100%, chất liệu cao cấp.</li>
+                <li>Giao hàng nhanh chóng từ 2-4 ngày làm việc.</li>
+              </ul>
+
+              <p class="fw-bold mt-4">HƯỚNG DẪN CHỌN SIZE:</p>
+              <p>- Size S: 45-55kg</p>
+              <p>- Size M: 56-65kg</p>
+              <p>- Size L: 66-75kg</p>
+              <p>- Size XL: 76-85kg</p>
+
+              <p class="mt-4 text-muted small fst-italic">
+                Lưu ý: Màu sắc thực tế có thể chênh lệch 3-5% do điều kiện ánh sáng khi chụp hình.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="bg-white p-4 shadow-sm rounded">
+          <h2 class="section-title text-uppercase mb-4">Đánh giá sản phẩm</h2>
+
+          <div class="rating-overview d-flex align-items-center p-4 mb-4">
+            <div class="text-center me-5">
+              <div class="display-4 fw-bold text-danger">4.9 <span class="fs-4">trên 5</span></div>
+              <div class="text-danger fs-4">⭐⭐⭐⭐⭐</div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 filter-tags">
+              <button class="btn btn-outline-secondary active">Tất Cả</button>
+              <button class="btn btn-outline-secondary">5 Sao (2,5k)</button>
+              <button class="btn btn-outline-secondary">4 Sao (120)</button>
+              <button class="btn btn-outline-secondary">3 Sao (15)</button>
+              <button class="btn btn-outline-secondary">Có Hình ảnh / Video (1,2k)</button>
+            </div>
+          </div>
+
+          <div class="comment-list">
+            <div class="comment-item d-flex gap-3 py-4 border-bottom">
+              <img
+                src="https://i.pravatar.cc/150?u=1"
+                class="rounded-circle"
+                style="width: 40px; height: 40px"
+                alt="Avatar"
+              />
+              <div class="flex-grow-1">
+                <div class="fw-bold small">nguyenvan_a</div>
+                <div class="text-danger my-1 small">⭐⭐⭐⭐⭐</div>
+                <div class="text-muted small mb-2">2026-03-25 14:30 | Phân loại hàng: Đen, L</div>
+                <div class="comment-content mb-3">
+                  Sản phẩm rất đẹp, vải dày dặn mặc cực thích. Giao hàng nhanh và đóng gói cẩn thận.
+                  Sẽ ủng hộ shop tiếp!
+                </div>
+                <div class="d-flex gap-2">
+                  <img
+                    [src]="currentImages()[0]"
+                    class="rounded border"
+                    style="width: 72px; height: 72px; object-fit: cover"
+                  />
+                  <img
+                    [src]="currentImages()[1]"
+                    class="rounded border"
+                    style="width: 72px; height: 72px; object-fit: cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="comment-item d-flex gap-3 py-4 border-bottom">
+              <img
+                src="https://i.pravatar.cc/150?u=2"
+                class="rounded-circle"
+                style="width: 40px; height: 40px"
+                alt="Avatar"
+              />
+              <div class="flex-grow-1">
+                <div class="fw-bold small">tranthi_b</div>
+                <div class="text-danger my-1 small">⭐⭐⭐⭐⭐</div>
+                <div class="text-muted small mb-2">2026-03-20 09:15 | Phân loại hàng: Xanh, M</div>
+                <div class="comment-content">
+                  Áo đúng form, màu sắc giống hình mô tả. Chất cotton mát mẻ.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn btn-outline-dark px-5">Xem thêm đánh giá</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

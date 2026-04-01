@@ -1,47 +1,182 @@
-/* Tùy chỉnh ảnh trong slider */
-.carousel-item img {
-  height: 500px;
-  object-fit: cover;
-  border-radius: 12px;
+/* Style chung cho nút biến thể (Màu và Size) */
+/* --- PHẦN CSS ĐÃ CẬP NHẬT ĐỂ BỎ DẤU TÍCH --- */
+
+/* Style chung cho nút biến thể (giữ nguyên) */
+.variant-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Căn giữa nội dung */
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.09); /* Viền mặc định nhạt */
+    padding: 8px 12px;
+    border-radius: 2px;
+    min-width: 60px;
+    font-size: 14px;
+    color: rgba(0,0,0,.8);
+    position: relative;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
 }
 
-/* Bảng thông số */
-.specs-table {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
+/* Hiệu ứng khi di chuột qua */
+.variant-btn:hover {
+    border-color: #ee4d2d; /* Đổi màu viền sang cam */
+    color: #ee4d2d; /* Đổi màu chữ sang cam */
 }
 
-.table td {
-  padding: 12px 0;
-  vertical-align: middle;
+/* Style cho nút KHI ĐƯỢC CHỌN (ACTIVE) - ĐÃ BỎ DẤU TÍCH */
+.variant-btn.active {
+    border-color: #ee4d2d; /* Viền màu cam đậm */
+    border-width: 2px; /* Làm viền dày hơn một chút để nổi bật */
+    color: #ee4d2d; /* Chữ màu cam */
+    font-weight: 500; /* Làm chữ đậm hơn một chút */
+    
+    /* --- ĐÃ XÓA BỎ PHẦN BACKGROUND-IMAGE (DẤU TÍCH) --- */
+    background-image: none !important; 
+    
+    /* Đảm bảo không có padding thừa ở góc */
+    background-position: unset;
+    background-repeat: unset;
+    background-size: unset;
 }
 
-/* Các chấm màu sắc xem trước */
-.color-preview {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
+/* Style cho ảnh nhỏ trong nút màu sắc (giữ nguyên) */
+.variant-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    object-fit: cover;
+    border-radius: 2px;
 }
 
-/* Hiệu ứng giá tiền */
-.price-section del {
-  font-size: 1.1rem;
+/* -------------------------------------------------- */
+
+/* Nút Thêm vào giỏ hàng */
+.btn-add-cart {
+    background-color: rgba(255, 87, 34, 0.1) !important;
+    border: 1px solid #ee4d2d !important;
+    color: #ee4d2d !important;
+    font-weight: 500;
+    flex: 1;
 }
 
-/* Nút bấm */
-.btn-dark {
-  border-radius: 8px;
-  padding: 12px;
-  font-weight: 600;
-  transition: transform 0.2s;
+/* Nút Mua ngay */
+.btn-buy-now {
+    background-color: #ee4d2d !important;
+    color: white !important;
+    border: none;
+    font-weight: 500;
+    flex: 1;
 }
 
-.btn-dark:hover {
-  transform: translateY(-2px);
+.btn-buy-now:hover {
+    background-color: #f05d40 !important;
 }
 
-.color-preview {
-  cursor: pointer;
+/* Carousel Control */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1); /* Làm nút mũi tên hiện rõ trên nền trắng */
+}
+
+/* Container chứa chi tiết sản phẩm */
+.bg-white {
+    background-color: #fff !important;
+}
+
+/* Tiêu đề mục (Chi tiết sản phẩm / Mô tả sản phẩm) */
+.section-title {
+    background-color: #f5f5f5; /* Nền xám nhạt */
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(0,0,0,.87);
+    border-radius: 2px;
+}
+
+/* Style cho các dòng chi tiết */
+.text-muted {
+    color: rgba(0,0,0,.4) !important;
+    font-size: 14px;
+}
+
+.text-primary {
+    color: #05a !important; /* Màu xanh link của Shopee */
+    cursor: pointer;
+}
+
+.border-bottom {
+    border-bottom: 1px solid rgba(0,0,0,.05) !important;
+}
+
+/* Nội dung mô tả */
+.product-description {
+    white-space: pre-line; /* Giữ nguyên các dấu xuống dòng */
+    color: rgba(0,0,0,.8);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.product-description p {
+    margin-bottom: 8px;
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 768px) {
+    .section-info span {
+        font-size: 13px;
+    }
+    .text-muted {
+        width: 100px !important;
+    }
+}
+
+/* Khối tổng quan đánh giá */
+.rating-overview {
+    background-color: #fffbf8; /* Màu cam nhạt cực nhẹ của Shopee */
+    border: 1px solid #fbebed;
+    border-radius: 2px;
+}
+
+/* Các nút lọc đánh giá */
+.filter-tags .btn {
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.09);
+    color: rgba(0,0,0,.8);
+    font-size: 14px;
+    padding: 6px 20px;
+    border-radius: 2px;
+}
+
+.filter-tags .btn.active {
+    border-color: #ee4d2d;
+    color: #ee4d2d;
+}
+
+/* Nội dung bình luận */
+.comment-item:last-child {
+    border-bottom: none !important;
+}
+
+.comment-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0,0,0,.87);
+}
+
+.comment-item .text-muted {
+    font-size: 12px;
+}
+
+/* Avatar và ảnh feedback */
+.comment-item img.rounded-circle {
+    border: 1px solid #eee;
+}
+
+.comment-item .rounded.border {
+    cursor: zoom-in;
+    transition: transform 0.2s;
+}
+
+.comment-item .rounded.border:hover {
+    transform: scale(1.05);
 }
