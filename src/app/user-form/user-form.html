@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="form-box">
+    <h2>Form nhập</h2>
+    <form action="">
+      <label for="">Username</label>
+      <input
+        type="text"
+        name="username"
+        [value]="user().userName"
+        (input)="updateField('userName', $any($event.target).value)"
+        (blur)="setTouched('userName')"
+      />
+      @if (touched().userName && userNameError()) {
+        <p class="error">{{ userNameError() }}</p>
+      }
+
+      <label for="">Tên người dùng</label>
+      <input
+        type="text"
+        name="fullname"
+        [value]="user().tenNguoiDung"
+        (input)="updateField('tenNguoiDung', $any($event.target).value)"
+        (blur)="setTouched('tenNguoiDung')"
+      />
+      @if (touched().tenNguoiDung && fullNameError()) {
+        <p class="error">{{ fullNameError() }}</p>
+      }
+
+      <label for="">Email</label>
+      <input
+        type="text"
+        name="email"
+        [value]="user().email"
+        (input)="updateField('email', $any($event.target).value)"
+        (blur)="setTouched('email')"
+      />
+      @if (touched().email && emailErrors()) {
+        <p class="error">{{ emailErrors() }}</p>
+      }
+
+      <label>Tuổi</label>
+      <input
+        type="number"
+        name="age"
+        [value]="user().tuoi"
+        (input)="updateField('tuoi', $any($event.target).value)"
+        (blur)="setTouched('tuoi')"
+      />
+      @if (touched().tuoi && ageError()) {
+        <p class="error">{{ ageError() }}</p>
+      }
+
+      <label for="">Giới tính</label>
+      <select
+        name="gender"
+        [value]="user().gioiTinh"
+        (change)="updateField('gioiTinh', $any($event.target).value)"
+      >
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+      </select>
+
+      <label for="">Hình đại diện</label>
+      <input type="file" name="avatar" (change)="onFileSelected($event)" />
+
+      <button [disabled]="formInvalid()" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div class="preview-box">
+    <h2>Preview</h2>
+    <p><strong>Username:</strong> {{ user().userName }}</p>
+    <p><strong>Tên:</strong> {{ user().tenNguoiDung }}</p>
+    <p><strong>Email:</strong> {{ user().email }}</p>
+    <p><strong>Tuổi:</strong> {{ user().tuoi }}</p>
+    <p><strong>Giới tính:</strong> {{ user().gioiTinh }}</p>
+    <p><strong>Avatar:</strong></p>
+    <img [src]="user().photo" alt="avatar" style="max-width: 150px" />
+  </div>
+</div>
