@@ -11,17 +11,17 @@
         <div>
           <h6 class="mb-0 fw-bold">{{ item.name }}</h6>
           <p class="text-muted small mb-1 text-truncate" style="max-width: 250px;">{{ item.description }}</p>
-          <span class="text-primary fw-bold">${{ item.price | number:'1.2-2' }}</span>
+          <span class="text-primary fw-bold">${{ item.price * item.quantity | number:'1.2-2' }}</span>
         </div>
       </div>
 
       <div class="d-flex flex-column align-items-end gap-2">
         <div class="quantity-control d-flex align-items-center bg-light rounded-2 border px-2 py-1">
-          <button class="btn btn-sm p-0">－</button>
+          <button class="btn btn-sm p-0" (click)="decreaseQty(item.id)">－</button>
           <span class="mx-3 fw-bold">{{ item.quantity }}</span>
-          <button class="btn btn-sm p-0">＋</button>
+          <button class="btn btn-sm p-0" (click)="increaseQty(item.id)">＋</button>
         </div>
-        <button class="btn btn-sm text-muted">
+        <button class="btn btn-sm text-muted" (click)="cartService.removeFromCart(item.id)">
           <i class="bi bi-trash"></i> </button>
       </div>
     </div>

@@ -8,8 +8,16 @@ import { CartService } from '../cart.service';
   styleUrl: './order-list.css',
 })
 export class OrderList {
-  private cartService = inject(CartService);
+  public cartService = inject(CartService);
   
   // Lấy signal từ service về để dùng trong template
   cartItems = this.cartService.items
+
+  increaseQty(id: number) {
+    this.cartService.updateQuantity(id , 1)
+  }
+
+  decreaseQty(id: number) {
+    this.cartService.updateQuantity(id, -1);
+  }
 }
