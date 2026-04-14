@@ -16,14 +16,25 @@ export class CartService {
   private CartItems = signal<CartItem[]>([]);
   items = computed(() => this.CartItems());
 
+  // src/app/cart/cart.service.ts
+
   addToCart(item: CartItem) {
     this.CartItems.update((prevItems) => {
       const existingItem = prevItems.find((i) => i.id === item.id);
+
       if (existingItem) {
+        // Nếu sản phẩm đã có, thực hiện CỘNG DỒN số lượng và tính lại tổng giá
         return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i,
+          i.id === item.id
+            ? {
+                ...i,
+                quantity: i.quantity + item.quantity, // Cộng dồn: 2 + 3 = 5
+                price: (i.price / i.quantity) * (i.quantity + item.quantity), // Tính lại tổng giá dựa trên đơn giá
+              }
+            : i,
         );
       }
+      // Nếu chưa có, thêm mới vào đầu danh sách
       return [item, ...prevItems];
     });
     alert(`Đã thêm ${item.quantity} sản phẩm vào giỏ hàng!`);
