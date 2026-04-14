@@ -1,1 +1,38 @@
-<p>select-voucher works!</p>
+<div class="voucher-container">
+  <h3 class="title">Chọn Voucher</h3>
+  
+  <div class="voucher-list">
+    @for (voucher of cartService.vouchers(); track voucher.id) {
+      <div 
+        class="voucher-item" 
+        [class.disabled]="!cartService.isVoucherValid(voucher)"
+        [class.selected]="cartService.selectedVoucher()?.id === voucher.id"
+        (click)="cartService.selectVoucher(voucher)"
+      >
+        <div class="voucher-left">
+          <span class="icon">🏷️</span>
+        </div>
+        
+        <div class="voucher-info">
+          <div class="code">{{ voucher.code }}</div>
+          <div class="name">{{ voucher.name }}</div>
+          <div class="desc">{{ voucher.description }}</div>
+          
+          @if (!cartService.isVoucherValid(voucher)) {
+            <div class="error-msg">
+              Còn thiếu {{ (voucher.minSpend - cartService.getTotalByCategory(voucher.applyFor)) | number }}đ để sử dụng
+            </div>
+          }
+        </div>
+
+        <div class="voucher-radio">
+          <input 
+            type="radio" 
+            [checked]="cartService.selectedVoucher()?.id === voucher.id"
+            [disabled]="!cartService.isVoucherValid(voucher)"
+          >
+        </div>
+      </div>
+    }
+  </div>
+</div>

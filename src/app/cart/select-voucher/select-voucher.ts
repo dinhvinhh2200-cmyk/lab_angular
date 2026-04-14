@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-select-voucher',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './select-voucher.html',
   styleUrl: './select-voucher.css',
 })
-export class SelectVoucher {}
+export class SelectVoucher {
+  cartService = inject(CartService);
+}
