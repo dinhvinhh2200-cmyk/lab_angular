@@ -17,9 +17,9 @@
 
       <div class="d-flex flex-column align-items-end gap-2">
         <div class="quantity-control d-flex align-items-center bg-light rounded-2 border px-2 py-1">
-          <button class="btn btn-sm p-0" (click)="decreaseQty(item.id)">－</button>
+          <button class="btn btn-sm p-0" (click)="decreaseQty(item)">－</button>
           <span class="mx-3 fw-bold">{{ item.quantity }}</span>
-          <button class="btn btn-sm p-0" (click)="increaseQty(item.id)">＋</button>
+          <button class="btn btn-sm p-0" (click)="increaseQty(item)">＋</button>
         </div>
         <button class="btn btn-sm text-muted" (click)="cartService.removeFromCart(item.id)">
           <i class="bi bi-trash"></i> </button>

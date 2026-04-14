@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CartService } from '../cart.service';
+import { CartService, CartItem } from '../cart.service';
 
 @Component({
   selector: 'app-order-list',
@@ -15,25 +15,28 @@ export class OrderList {
 
   // src/app/cart/order-list/order-list.ts (Ví dụ)
 
-  updateQuantity(item: any, newQuantity: number) {
-    if (newQuantity < 1) return;
+  // Hàm tăng số lượng
+increaseQty(item: CartItem) {
+  const newQty = item.quantity + 1;
+  this.cartService.updateQuantity(item.id, newQty);
+}
 
-    // Tính toán lại tổng giá dựa trên đơn giá gốc
-    const updatedPrice = item.unitPrice * newQuantity;
-
-    // Gửi thông tin cập nhật vào service
-    this.cartService.addToCart({
-      ...item,
-      quantity: newQuantity,
-      price: updatedPrice,
-    });
+// Hàm giảm số lượng
+decreaseQty(item: CartItem) {
+  if (item.quantity > 1) {
+    const newQty = item.quantity - 1;
+    this.cartService.updateQuantity(item.id, newQty);
   }
+}
 
-  increaseQty(id: number) {
-    this.cartService.updateQuantity(id, 1);
+// Nếu người dùng nhập số trực tiếp vào input
+onQuantityChange(item: CartItem, event: any) {
+  const val = parseInt(event.target.value);
+  if (val > 0) {
+    this.cartService.updateQuantity(item.id, val);
+  } else {
+    event.target.value = 1; // Reset về 1 nếu nhập số âm hoặc 0
+    this.cartService.updateQuantity(item.id, 1);
   }
-
-  decreaseQty(id: number) {
-    this.cartService.updateQuantity(id, -1);
-  }
+}
 }

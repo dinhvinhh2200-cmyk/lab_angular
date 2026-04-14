@@ -372,25 +372,20 @@ export class ProductDetail {
     }
   }
 
-  // src/app/product-detail/product-detail.ts
-
   handleAddToCart() {
-    const currentProduct = this.product();
-    const currentImages = this.currentImages();
-
-    if (currentProduct && this.quantity() > 0) {
+    const product = this.product();
+    if (product && this.quantity() > 0) {
       this.CartService.addToCart({
-        id: currentProduct.id,
-        name: currentProduct.card_title,
-        // Truyền giá của số lượng đang chọn thêm (ví dụ giá của 3 cái)
-        price: currentProduct.card_price * this.quantity(),
-        image: currentImages[0] || '',
-        quantity: this.quantity(), // Số lượng chọn thêm (ví dụ: 3)
-        description: currentProduct.card_mota,
+        id: product.id,
+        name: product.card_title,
+        unitPrice: product.card_price, // Truyền giá gốc của 1 cái
+        price: product.card_price * this.quantity(), // Tổng tiền ban đầu
+        image: this.currentImages()[0] || '',
+        quantity: this.quantity(),
+        description: product.card_mota,
         selected: false,
       });
-    } else if (this.quantity() <= 0) {
-      alert('Vui lòng chọn số lượng lớn hơn 0');
+      alert('Đã thêm vào giỏ hàng');
     }
   }
 }
