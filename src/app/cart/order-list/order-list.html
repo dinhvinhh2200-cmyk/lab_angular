@@ -1,1 +1,31 @@
-<p>order-list works!</p>
+<div class="order-list-container bg-white rounded-4 p-3 shadow-sm">
+  @for (item of cartItems(); track item.id) {
+    <div class="cart-item d-flex align-items-center justify-content-between border-bottom py-3">
+      <div class="d-flex align-items-center gap-3">
+        <input type="checkbox" [checked]="item.selected" class="form-check-input custom-checkbox">
+        
+        <div class="product-img-wrapper rounded-3 bg-light overflow-hidden" style="width: 80px; height: 80px;">
+          <img [src]="item.image" [alt]="item.name" class="w-100 h-100 object-fit-cover">
+        </div>
+
+        <div>
+          <h6 class="mb-0 fw-bold">{{ item.name }}</h6>
+          <p class="text-muted small mb-1 text-truncate" style="max-width: 250px;">{{ item.description }}</p>
+          <span class="text-primary fw-bold">${{ item.price | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column align-items-end gap-2">
+        <div class="quantity-control d-flex align-items-center bg-light rounded-2 border px-2 py-1">
+          <button class="btn btn-sm p-0">－</button>
+          <span class="mx-3 fw-bold">{{ item.quantity }}</span>
+          <button class="btn btn-sm p-0">＋</button>
+        </div>
+        <button class="btn btn-sm text-muted">
+          <i class="bi bi-trash"></i> </button>
+      </div>
+    </div>
+  } @empty {
+    <p class="text-center py-5">Giỏ hàng của bạn đang trống.</p>
+  }
+</div>

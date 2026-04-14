@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-order-list',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   templateUrl: './order-list.html',
   styleUrl: './order-list.css',
 })
-export class OrderList {}
+export class OrderList {
+  private cartService = inject(CartService);
+  
+  // Lấy signal từ service về để dùng trong template
+  cartItems = this.cartService.items
+}

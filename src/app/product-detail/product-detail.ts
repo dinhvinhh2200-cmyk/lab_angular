@@ -1,3 +1,4 @@
+import { CartService } from './../cart/cart.service';
 import { Component, inject, signal, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,6 +22,7 @@ export class ProductDetail {
   selectedSize = signal<string>('M');
   quantity = signal<number>(0);
   cart = signal<CartItem[]>([]);
+  public CartService = inject(CartService);
 
   ngOnInit() {
     const id = Number(this.router.snapshot.paramMap.get('id'));
@@ -33,8 +35,18 @@ export class ProductDetail {
         discount: 25000,
         card_mota: 'Áo thun cơ bản, thoáng mát phù hợp mặc hàng ngày.',
         colors: [
-          { id: 1, color: '#000000', nameColor: 'đen', images: ['/ao_den_1.jpg', '/ao_den_2.jpg', '/ao_den_3.jpg'] },
-          { id: 2, color: '#FF0000', nameColor: 'đỏ', images: ['/ao_do_1.jpg', '/ao_do_2.jpg', '/ao_do_3.jpg'] },
+          {
+            id: 1,
+            color: '#000000',
+            nameColor: 'đen',
+            images: ['/ao_den_1.jpg', '/ao_den_2.jpg', '/ao_den_3.jpg'],
+          },
+          {
+            id: 2,
+            color: '#FF0000',
+            nameColor: 'đỏ',
+            images: ['/ao_do_1.jpg', '/ao_do_2.jpg', '/ao_do_3.jpg'],
+          },
           {
             id: 3,
             color: '#0000FF',
@@ -357,6 +369,25 @@ export class ProductDetail {
     const newQty = this.quantity() + amount;
     if (newQty >= 0) {
       this.quantity.set(newQty);
+    }
+  }
+
+  handleAddToCart() {
+    const currentProduct = this.product();
+    const currentImages = this.currentImages(); // Lấy mảng ảnh hiện tại
+
+    if (currentProduct && this.quantity() > 0) {
+      this.CartService.addToCart({
+        id: currentProduct.id,
+        name: currentProduct.card_title, // Sửa từ .name thành .card_title
+        price: currentProduct.card_price * this.quantity(), // Sửa từ .price thành .card_price
+        image: currentImages[0] || '', // Lấy ảnh đầu tiên của màu đang chọn
+        quantity: this.quantity(),
+        description: currentProduct.card_mota, // Sửa từ .description thành .card_mota
+        selected: false,
+      });
+    } else if (this.quantity() <= 0) {
+      alert('Vui lòng chọn số lượng lớn hơn 0');
     }
   }
 }
