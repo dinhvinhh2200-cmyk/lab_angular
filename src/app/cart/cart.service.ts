@@ -26,11 +26,11 @@ export interface Voucher {
   providedIn: 'root',
 })
 export class CartService {
-  // 1. Quản lý danh sách sản phẩm trong giỏ hàng
+  // 1. Quản lý danh sách sản phẩm
   private CartItems = signal<CartItem[]>([]);
   items = computed(() => this.CartItems());
 
-  // 2. Quản lý danh sách Voucher
+  // 2. Danh sách Voucher
   vouchers = signal<Voucher[]>([
     {
       id: 1,
@@ -54,123 +54,107 @@ export class CartService {
     },
   ]);
 
-  // Voucher đang được chọn
-  selectedVoucher = signal<Voucher | null>(null);
+  // 3. Danh sách Voucher đang chọn (Hỗ trợ chọn nhiều cái)
+  selectedVouchers = signal<Voucher[]>([]);
 
-  // --- CÁC HÀM THAO TÁC GIỎ HÀNG ---
+  private removeAccents(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D');
+  }
+
+  // --- HÀM GIỎ HÀNG (SỬA ĐỂ TÍNH TOÁN LẠI NGAY LẬP TỨC) ---
 
   addToCart(item: CartItem) {
-    this.CartItems.update((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id);
-      if (existingItem) {
-        return prevItems.map((i) =>
-          i.id === item.id
-            ? {
-                ...i,
-                quantity: i.quantity + item.quantity,
-                price: i.unitPrice * (i.quantity + item.quantity),
-              }
+    this.CartItems.update((prev) => {
+      const existing = prev.find((i) => i.id === item.id);
+      if (existing) {
+        return prev.map((i) =>
+          i.id === item.id 
+            ? { ...i, quantity: i.quantity + item.quantity, price: i.unitPrice * (i.quantity + item.quantity) } 
             : i
         );
       }
-      return [item, ...prevItems];
+      return [item, ...prev];
     });
+    this.checkVoucherValidity();
   }
 
   updateQuantity(productId: number, newQty: number) {
     if (newQty < 1) return;
     this.CartItems.update((items) =>
-      items.map((item) =>
-        item.id === productId
-          ? { ...item, quantity: newQty, price: item.unitPrice * newQty }
-          : item
+      items.map((i) =>
+        i.id === productId ? { ...i, quantity: newQty, price: i.unitPrice * newQty } : i
       )
     );
+    this.checkVoucherValidity();
   }
 
   removeFromCart(productId: number) {
     this.CartItems.update((items) => items.filter((i) => i.id !== productId));
-    // Nếu xóa sản phẩm dẫn đến voucher không còn hợp lệ, hãy hủy chọn voucher
     this.checkVoucherValidity();
   }
 
   toggleSelection(productId: number) {
     this.CartItems.update((items) =>
-      items.map((item) =>
-        item.id === productId ? { ...item, selected: !item.selected } : item
-      )
+      items.map((i) => (i.id === productId ? { ...i, selected: !i.selected } : i))
     );
-    // Kiểm tra lại tính hợp lệ của voucher sau khi thay đổi tích chọn
     this.checkVoucherValidity();
   }
 
-  // --- LOGIC TÍNH TOÁN & VOUCHER ---
+  // --- LOGIC VOUCHER ---
 
-  // Tính tổng tiền của các sản phẩm ĐƯỢC CHỌN và ĐÚNG LOẠI (AO/QUAN)
   getTotalByCategory(category: string) {
     return this.CartItems()
       .filter((item) => {
-        const isSelected = item.selected === true;
-        const searchStr = (item.name + item.description).toUpperCase();
-        const isRightCategory =
-          category === 'ALL' || searchStr.includes(category.toUpperCase());
-        return isSelected && isRightCategory;
+        if (!item.selected) return false;
+        const searchStr = this.removeAccents(item.name + item.description).toUpperCase();
+        return category === 'ALL' || searchStr.includes(category.toUpperCase());
       })
       .reduce((total, item) => total + item.unitPrice * item.quantity, 0);
   }
 
-  // Tổng tiền tạm tính của tất cả sản phẩm được tích chọn (Chưa giảm giá)
-  selectedTotal = computed(() => {
-    return this.CartItems()
-      .filter((item) => item.selected)
-      .reduce((total, item) => total + item.unitPrice * item.quantity, 0);
-  });
-
-  // Kiểm tra voucher có thỏa mãn điều kiện ≥ 50k không
   isVoucherValid(voucher: Voucher): boolean {
-    const categoryTotal = this.getTotalByCategory(voucher.applyFor);
-    return categoryTotal >= voucher.minSpend;
+    return this.getTotalByCategory(voucher.applyFor) >= voucher.minSpend;
   }
 
-  // Chọn hoặc hủy chọn Voucher
   selectVoucher(voucher: Voucher) {
     if (!this.isVoucherValid(voucher)) {
-      alert(
-        `Chưa đủ điều kiện! Tổng tiền hàng ${
-          voucher.applyFor
-        } được chọn phải từ ${voucher.minSpend.toLocaleString()}đ`
-      );
+      alert(`Chưa đủ điều kiện cho mã ${voucher.code}!`);
       return;
     }
-    // Toggle: Nếu bấm vào cái đang chọn thì hủy chọn
-    this.selectedVoucher.set(
-      this.selectedVoucher()?.id === voucher.id ? null : voucher
-    );
-  }
 
-  // Tự động hủy chọn voucher nếu người dùng bỏ tích sản phẩm khiến điều kiện không còn thỏa mãn
-  private checkVoucherValidity() {
-    const currentVoucher = this.selectedVoucher();
-    if (currentVoucher && !this.isVoucherValid(currentVoucher)) {
-      this.selectedVoucher.set(null);
-    }
-  }
-
-  // Tính số tiền được giảm giá
-  discountAmount = computed(() => {
-    const voucher = this.selectedVoucher();
-    if (!voucher || !this.isVoucherValid(voucher)) return 0;
-
-    if (voucher.discountType === 'fixed') {
-      return voucher.value;
+    // Cập nhật mảng mới để trigger computed
+    const currentSelected = this.selectedVouchers();
+    const isExist = currentSelected.some(v => v.id === voucher.id);
+    
+    if (isExist) {
+      this.selectedVouchers.set(currentSelected.filter(v => v.id !== voucher.id));
     } else {
-      // Ví dụ nếu sau này có voucher giảm theo %
-      const total = this.getTotalByCategory(voucher.applyFor);
-      return (total * voucher.value) / 100;
+      this.selectedVouchers.set([...currentSelected, voucher]);
     }
+  }
+
+  private checkVoucherValidity() {
+    // Lọc lại những voucher vẫn còn hợp lệ sau khi thay đổi giỏ hàng
+    const validVouchers = this.selectedVouchers().filter(v => this.isVoucherValid(v));
+    this.selectedVouchers.set(validVouchers);
+  }
+
+  // --- TÍNH TOÁN TIỀN (SẼ TỰ ĐỘNG CẬP NHẬT GIAO DIỆN) ---
+
+  selectedTotal = computed(() => {
+    return this.CartItems()
+      .filter((i) => i.selected)
+      .reduce((t, i) => t + i.unitPrice * i.quantity, 0);
   });
 
-  // Tổng tiền cuối cùng khách phải trả
+  discountAmount = computed(() => {
+    return this.selectedVouchers().reduce((sum, v) => sum + v.value, 0);
+  });
+
   finalTotal = computed(() => {
     return Math.max(0, this.selectedTotal() - this.discountAmount());
   });

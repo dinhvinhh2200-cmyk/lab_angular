@@ -383,6 +383,7 @@ export class ProductDetail {
         image: this.currentImages()[0] || '',
         quantity: this.quantity(),
         description: product.card_mota,
+        
         selected: false,
       });
       alert('Đã thêm vào giỏ hàng');
