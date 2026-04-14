@@ -1,1 +1,34 @@
-<p>order-summary works!</p>
+<div class="order-summary-card bg-white rounded-4 p-4 shadow-sm">
+  <h5 class="fw-bold mb-4">Order Summary</h5>
+
+  <div class="d-flex justify-content-between mb-3">
+    <span class="text-muted">Subtotal</span>
+    <span class="fw-bold">${{ subtotal() | number:'1.0-0' }}</span>
+  </div>
+
+  <div class="d-flex justify-content-between mb-3">
+    <span class="text-muted">Shipping</span>
+    @if (isFreeShip()) {
+      <span class="text-success fw-bold">Free</span>
+    } @else if (subtotal() === 0) {
+      <span class="fw-bold">$0</span>
+    } @else {
+      <span class="fw-bold">${{ shippingFee() | number:'1.0-0' }}</span>
+    }
+  </div>
+
+  <hr class="my-4 text-muted opacity-25">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <span class="h5 fw-bold mb-0">Total</span>
+    <span class="h4 fw-bold text-primary mb-0">${{ totalOrder() | number:'1.0-0' }}</span>
+  </div>
+
+  <button class="btn btn-primary w-100 py-3 rounded-3 fw-bold shadow-sm mb-3">
+    Checkout Now
+  </button>
+  
+  <p class="text-center small text-muted mb-0">
+    <i class="bi bi-shield-check me-1"></i> Secure Payment Guaranteed
+  </p>
+</div>

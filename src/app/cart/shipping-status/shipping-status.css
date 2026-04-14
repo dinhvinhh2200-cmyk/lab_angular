@@ -1,0 +1,29 @@
+/* Hiệu ứng chuyển động mượt mà cho cả vạch và xe */
+.transition-all {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-wrapper {
+  overflow: visible !important; /* Đảm bảo xe không bị mất phần trên */
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}
+
+.progress-fill {
+  background-color: #28a745 !important; /* Màu xanh lá của vạch */
+  z-index: 1;
+}
+
+.car-icon {
+  font-size: 28px; /* Kích thước icon xe */
+  top: -20px;     /* Đẩy xe lên trên thanh một chút */
+  transform: translateX(-50%); /* Căn giữa xe tại điểm % */
+  z-index: 2;
+  cursor: default;
+  user-select: none;
+}
+
+/* Tùy chỉnh thêm cho container */
+.shipping-container {
+  border: 1px solid #eee;
+}

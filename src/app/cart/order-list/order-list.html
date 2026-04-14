@@ -2,7 +2,8 @@
   @for (item of cartItems(); track item.id) {
     <div class="cart-item d-flex align-items-center justify-content-between border-bottom py-3">
       <div class="d-flex align-items-center gap-3">
-        <input type="checkbox" [checked]="item.selected" class="form-check-input custom-checkbox">
+        <input type="checkbox" [checked]="item.selected" (change)="cartService.toggleSelection(item.id)"
+  class="form-check-input custom-checkbox" class="form-check-input custom-checkbox">
         
         <div class="product-img-wrapper rounded-3 bg-light overflow-hidden" style="width: 80px; height: 80px;">
           <img [src]="item.image" [alt]="item.name" class="w-100 h-100 object-fit-cover">

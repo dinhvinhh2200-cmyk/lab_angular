@@ -1,1 +1,27 @@
-<p>shipping-status works!</p>
+<div class="shipping-container p-4 mb-4 bg-white rounded-4 shadow-sm">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="status-text">
+      <h6 class="fw-bold mb-0" *ngIf="progressPercent() < 100">
+        Bạn còn thiếu <span class="text-primary">${{ GOAL - totalAmount() | number }}</span> để được
+        Freeship
+      </h6>
+      <h6 class="fw-bold mb-0 text-success" *ngIf="progressPercent() >= 100">
+        Chúc mừng! Đơn hàng của bạn đã được Freeship 🥳
+      </h6>
+    </div>
+    <span class="badge bg-light text-dark border">Mục tiêu: $200,000</span>
+  </div>
+
+  <div class="progress-wrapper position-relative" style="height: 10px; margin-top: 35px">
+    <div class="progress-bg position-absolute w-100 h-100 bg-light rounded-pill"></div>
+
+    <div
+      class="progress-fill position-absolute h-100 bg-success rounded-pill transition-all"
+      [style.width.%]="progressPercent()"
+    ></div>
+
+    <div class="car-icon position-absolute transition-all" [style.left.%]="progressPercent()">
+      🚚
+    </div>
+  </div>
+</div>
