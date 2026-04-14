@@ -12,6 +12,8 @@ import { ProductComponents } from './product-components/product-components';
 import { ProductDetail } from './product-detail/product-detail';
 import { PageNotFoundComponent } from './page-not-found-component/page-not-found-component';
 import { UserForm } from './user-form/user-form';
+import { PostItem } from './post-item/post-item';
+import { PostList } from './post-list/post-list';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { UserForm } from './user-form/user-form';
     ProductDetail,
     PageNotFoundComponent,
     UserForm,
+    PostItem,
+    PostList,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],

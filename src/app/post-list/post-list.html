@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h3>Danh sách bài viết</h3>
+  @if (isLoading()) {
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  }@else {
+    @for (item of posts(); track item.id) {
+      <app-post-item [post]="item"></app-post-item>
+    }@empty {
+      <p>Người dùng này chưa có bài viết nào.</p>
+    }
+  }
+</div>
