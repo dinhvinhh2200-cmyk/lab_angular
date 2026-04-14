@@ -6,6 +6,7 @@ import { ProductDetail } from './product-detail/product-detail';
 import { PageNotFoundComponent } from './page-not-found-component/page-not-found-component';
 import { UserForm } from './user-form/user-form';
 import { PostList } from './post-list/post-list';
+import { Cart } from './cart/cart';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'products', component: ProductComponents},
   {path: 'newuser', component: UserForm},
   {path: 'aboutus', component: PostList},
+  {path: 'cart', component: Cart},
   {path: 'products/:id', component:ProductDetail},
   { path: '**', component: PageNotFoundComponent }
 ];

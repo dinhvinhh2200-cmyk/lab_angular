@@ -14,6 +14,11 @@ import { PageNotFoundComponent } from './page-not-found-component/page-not-found
 import { UserForm } from './user-form/user-form';
 import { PostItem } from './post-item/post-item';
 import { PostList } from './post-list/post-list';
+import { Cart } from './cart/cart';
+import { ShippingStatus } from './cart/shipping-status/shipping-status';
+import { OrderList } from './cart/order-list/order-list';
+import { SelectVoucher } from './cart/select-voucher/select-voucher';
+import { OrderSummary } from './cart/order-summary/order-summary';
 
 @NgModule({
   declarations: [
@@ -29,6 +34,11 @@ import { PostList } from './post-list/post-list';
     UserForm,
     PostItem,
     PostList,
+    Cart,
+    ShippingStatus,
+    OrderList,
+    SelectVoucher,
+    OrderSummary,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
