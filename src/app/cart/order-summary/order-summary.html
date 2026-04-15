@@ -1,3 +1,4 @@
+<!-- order-summary.html -->
 <div class="order-summary-card bg-white rounded-4 p-4 shadow-sm">
   <h5 class="fw-bold mb-4">Order Summary</h5>
 
@@ -5,6 +6,14 @@
     <span class="text-muted">Subtotal</span>
     <span class="fw-bold">${{ subtotal() | number:'1.0-0' }}</span>
   </div>
+
+  <!-- Thêm dòng giảm giá -->
+  @if (discountAmount() > 0) {
+    <div class="d-flex justify-content-between mb-3 text-success">
+      <span class="text-muted">Voucher discount</span>
+      <span class="fw-bold">-${{ discountAmount() | number:'1.0-0' }}</span>
+    </div>
+  }
 
   <div class="d-flex justify-content-between mb-3">
     <span class="text-muted">Shipping</span>
